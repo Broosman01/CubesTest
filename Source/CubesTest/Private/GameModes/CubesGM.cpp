@@ -5,6 +5,16 @@
 #include "Cubes/BaseCube.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/CubesHUD.h"
+#include "Player/MainPlayer.h"
+#include "Player/MainPlayerController.h"
+
+
+ACubesGM::ACubesGM()
+{
+    PlayerControllerClass = AMainPlayerController::StaticClass();
+    HUDClass = ACubesHUD::StaticClass();
+}
 
 void ACubesGM::BeginPlay()
 {
@@ -67,6 +77,12 @@ void ACubesGM::CheckWinning()
         {
             auto WinWidget = CreateWidget<UUserWidget>(GetWorld(), WinWidgetClass);
             WinWidget->AddToViewport();
+        }
+        auto PlayerController = Cast<AMainPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+        if (PlayerController)
+        {
+            PlayerController->bShowMouseCursor = true;
+            PlayerController->SetInputMode(FInputModeUIOnly());
         }
     }
 }

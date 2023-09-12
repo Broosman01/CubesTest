@@ -14,9 +14,17 @@ class CUBESTEST_API ACubesGM : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	ACubesGM();
+
 	void IncreaseCubeCount();
 	void DecreaseCubeCount();
 	
+	UFUNCTION(BlueprintCallable)
+	int32 GetCubeCountForWin() const { return CubeCountForWin; }
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetCurrentCubeCount() const { return CurrentCubeCount; }
+
 protected:
 	virtual void BeginPlay() override;
 
