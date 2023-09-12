@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Interfaces/ChangeColorInterface.h"
+#include "GameModes/CubesGM.h"
 
 ABaseCube::ABaseCube()
 {
@@ -51,10 +52,24 @@ void ABaseCube::SetNewMaterial_Implementation(UMaterialInterface* NewMaterial, A
 
     CurrentMaterial = NewMaterial;
 	BaseMesh->SetMaterial(0, CurrentMaterial);
+
+	if (Causer == this) return;
+	auto CurrentGM = Cast<ACubesGM>(GetWorld()->GetAuthGameMode());
+	if (CurrentGM)
+	{
+		CurrentGM->IncreaseCubeCount();
+	}
 }
 
 void ABaseCube::SetBaseMaterial_Implementation()
 {
+	if (CurrentMaterial == BaseMaterial) return;
 	CurrentMaterial = BaseMaterial;
 	BaseMesh->SetMaterial(0, CurrentMaterial);
+
+	auto CurrentGM = Cast<ACubesGM>(GetWorld()->GetAuthGameMode());
+	if (CurrentGM)
+	{
+		CurrentGM->DecreaseCubeCount();
+	}
 }

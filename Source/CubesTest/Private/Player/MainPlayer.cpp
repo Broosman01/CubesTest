@@ -16,7 +16,6 @@ AMainPlayer::AMainPlayer()
 	BaseMesh->SetSimulatePhysics(true);
 }
 
-
 void AMainPlayer::BeginPlay()
 {
 	Super::BeginPlay();

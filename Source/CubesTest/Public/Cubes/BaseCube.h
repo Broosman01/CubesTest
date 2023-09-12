@@ -9,6 +9,9 @@
 
 class UStaticMeshComponent;
 
+DECLARE_MULTICAST_DELEGATE(FAddCube)
+DECLARE_MULTICAST_DELEGATE(FRemoveCube)
+
 UCLASS()
 class CUBESTEST_API ABaseCube : public AActor, public IChangeColorInterface
 {
@@ -46,7 +49,11 @@ protected:
 	UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	
 	bool IsMarked() const { return BaseMaterial != CurrentMaterial; }
+
 private:
+	FAddCube AddCube;
+	FRemoveCube RemoveCube;
+
 	FTimerHandle ImpulseTimer;
 
 	void AddRandomMovement();
