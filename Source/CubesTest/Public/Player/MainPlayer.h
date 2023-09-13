@@ -17,6 +17,9 @@ class CUBESTEST_API AMainPlayer : public APawn, public IChangeColorInterface
 public:
 	AMainPlayer();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = "1", ClampMax = "20"))
+	int32 ImpulseForce = 10;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -25,9 +28,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Color")
 	UMaterialInterface* BaseMaterial;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = "1", ClampMax = "20"))
-	int32 ImpulseForce = 10;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
@@ -43,4 +43,6 @@ public:
 
 	void LookUp(float Value);
 	void LookRight(float Value);
+
+	float Reverse = 1.f;
 };

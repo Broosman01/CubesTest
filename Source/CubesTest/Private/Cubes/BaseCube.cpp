@@ -6,6 +6,8 @@
 #include "Components/PrimitiveComponent.h"
 #include "Interfaces/ChangeColorInterface.h"
 #include "GameModes/CubesGM.h"
+#include "Kismet/GameplayStatics.h"
+
 
 ABaseCube::ABaseCube()
 {
@@ -46,19 +48,20 @@ void ABaseCube::AddRandomMovement()
 	BaseMesh->AddAngularImpulseInDegrees(ImpulseInDegrees * 100, NAME_None, true);
 }
 
-void ABaseCube::SetNewMaterial_Implementation(UMaterialInterface* NewMaterial, AActor* Causer)
+void ABaseCube::SetNewMaterial_Implementation(UMaterialInterface* NewMaterial, AActor* CauserActor)
 {
 	if (CurrentMaterial == NewMaterial) return;
 
     CurrentMaterial = NewMaterial;
 	BaseMesh->SetMaterial(0, CurrentMaterial);
 
-	if (Causer == this) return;
+	if (CauserActor == this) return;
 	auto CurrentGM = Cast<ACubesGM>(GetWorld()->GetAuthGameMode());
 	if (CurrentGM)
 	{
 		CurrentGM->IncreaseCubeCount();
 	}
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound01, GetActorLocation());
 }
 
 void ABaseCube::SetBaseMaterial_Implementation()
@@ -72,4 +75,5 @@ void ABaseCube::SetBaseMaterial_Implementation()
 	{
 		CurrentGM->DecreaseCubeCount();
 	}
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound02, GetActorLocation());
 }

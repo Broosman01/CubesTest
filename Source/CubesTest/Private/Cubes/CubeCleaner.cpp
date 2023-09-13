@@ -25,11 +25,11 @@ void ACubeCleaner::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	}
 }
 
-void ACubeCleaner::SetNewMaterial_Implementation(UMaterialInterface* NewMaterial, AActor* Causer)
+void ACubeCleaner::SetNewMaterial_Implementation(UMaterialInterface* NewMaterial, AActor* CauserActor)
 {
-	auto Player = Cast<AMainPlayer>(Causer);
+	auto Player = Cast<AMainPlayer>(CauserActor);
 
-	if (Causer != Player && Causer != this) return;
+	if (CauserActor != Player && CauserActor != this) return;
 
-	Super::SetNewMaterial_Implementation(NewMaterial, Causer);
+	Super::SetNewMaterial_Implementation(NewMaterial, CauserActor);
 }

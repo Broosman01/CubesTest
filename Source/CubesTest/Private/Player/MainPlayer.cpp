@@ -52,24 +52,24 @@ void AMainPlayer::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 
 void AMainPlayer::MoveForward(float Value)
 {
-	FVector Impulse = UKismetMathLibrary::GetForwardVector(FRotator(0, GetControlRotation().Yaw, 0)) * ImpulseForce * Value;
+	FVector Impulse = UKismetMathLibrary::GetForwardVector(FRotator(0, GetControlRotation().Yaw, 0)) * ImpulseForce * Value * Reverse;
 
 	BaseMesh->AddImpulse(Impulse, NAME_None, true);
 }
 
 void AMainPlayer::MoveRight(float Value)
 {
-	FVector Impulse = UKismetMathLibrary::GetRightVector(FRotator(0, GetControlRotation().Yaw, 0)) * ImpulseForce * Value;
+	FVector Impulse = UKismetMathLibrary::GetRightVector(FRotator(0, GetControlRotation().Yaw, 0)) * ImpulseForce * Value * Reverse;
 
 	BaseMesh->AddImpulse(Impulse, NAME_None, true);
 }
 
 void AMainPlayer::LookUp(float Value)
 {
-	AddControllerPitchInput(Value);
+	AddControllerPitchInput(Value * Reverse);
 }
 
 void AMainPlayer::LookRight(float Value)
 {
-	AddControllerYawInput(Value);
+	AddControllerYawInput(Value * Reverse);
 }

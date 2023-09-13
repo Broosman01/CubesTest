@@ -35,14 +35,19 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = "1", ClampMax = "10"))
 	int32 ImpulseForce = 1;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "BaseMesh", meta = (ClampMin = "1", ClampMax = "10"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = "1", ClampMax = "10"))
 	int32 ImpulseInDegreesForce = 1;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Color")
 	UMaterialInterface* BaseMaterial;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Color")
 	UMaterialInterface* CurrentMaterial;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
+	USoundBase* HitSound01;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
+	USoundBase* HitSound02;
 
 	UFUNCTION()
 	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
